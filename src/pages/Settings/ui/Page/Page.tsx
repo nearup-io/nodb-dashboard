@@ -1,6 +1,20 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import useGet from "@/app/useGet.ts";
 
 const Settings: FC = () => {
+  const get = useGet();
+
+  useEffect(() => {
+    (async () => {
+      const user = await get<{ userName: string }>({
+        url: "/users/profile",
+      });
+      console.log(user);
+    })();
+
+    return () => {};
+  }, []);
+
   return <>Settings page</>;
 };
 

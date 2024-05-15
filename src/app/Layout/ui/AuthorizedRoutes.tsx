@@ -14,7 +14,7 @@ const AuthorizedRoutesLayout: FC = () => {
       // TODO navigate to sign in route
       navigate("/sign-in");
     }
-  }, [isLoaded]);
+  }, [isLoaded, navigate, userId]);
 
   // TODO add loading bar
   if (!isLoaded) return "Loading...";
