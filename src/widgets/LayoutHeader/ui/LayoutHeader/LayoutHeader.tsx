@@ -16,8 +16,7 @@ const LayoutHeader: FC = () => {
           <Menu
             links={[
               { name: "Homepage", href: "/" },
-              { name: "Portfolio", href: "/portfolio" },
-              { name: "About", href: "/about" },
+              { name: "Settings", href: "/settings" },
             ]}
           />
           <Logo logoName={"daisyUI"} />
