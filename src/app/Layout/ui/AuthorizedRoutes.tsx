@@ -26,17 +26,13 @@ const AuthorizedRoutesLayout: FC = () => {
 
     if (isLoaded && isSignedIn && !isAuthenticated) {
       getUser();
+    } else {
+      // TODO navigate to sign in route
+      navigate("/sign-in");
     }
 
     return () => {};
   }, []);
-
-  useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      // TODO navigate to sign in route
-      navigate("/sign-in");
-    }
-  }, [isLoaded, navigate, isSignedIn]);
 
   // TODO add loading bar
   if (!isLoaded) return "Loading...";
