@@ -1,19 +1,42 @@
 import { useAuth } from "@clerk/clerk-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
+import {
+  selectIsUserLoggedIn,
+  setUser,
+  User,
+} from "@/app/redux/reducors/user.slice.ts";
+import { useGet } from "@/app/hooks";
+import { useDispatch, useSelector } from "react-redux";
 
 const AuthorizedRoutesLayout: FC = () => {
-  const { userId, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded } = useAuth();
+  const isAuthenticated = useSelector(selectIsUserLoggedIn);
   const navigate = useNavigate();
-
-  console.log("test", userId);
+  const get = useGet();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isLoaded && !userId) {
+    const getUser = async () => {
+      const user = await get<User>({
+        url: "/users/profile",
+      });
+      dispatch(setUser(user));
+    };
+
+    if (isLoaded && isSignedIn && !isAuthenticated) {
+      getUser();
+    }
+
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
       // TODO navigate to sign in route
       navigate("/sign-in");
     }
-  }, [isLoaded, navigate, userId]);
+  }, [isLoaded, navigate, isSignedIn]);
 
   // TODO add loading bar
   if (!isLoaded) return "Loading...";
