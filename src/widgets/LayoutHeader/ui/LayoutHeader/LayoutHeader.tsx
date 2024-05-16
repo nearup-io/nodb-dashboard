@@ -1,12 +1,7 @@
 import { FC } from "react";
 import { Logo } from "@/widgets";
 import Menu from "../Menu/Menu";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
+import AuthHandler from "../Navigation/AuthHandler";
 
 const LayoutHeader: FC = () => {
   return (
@@ -20,14 +15,7 @@ const LayoutHeader: FC = () => {
             ]}
           />
           <Logo logoName={"daisyUI"} />
-          <div className="navbar-end">
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
+          <AuthHandler />
         </nav>
       </header>
     </>

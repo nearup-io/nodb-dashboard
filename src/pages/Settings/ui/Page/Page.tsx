@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import useGet from "@/app/useGet.ts";
+import { useGet } from "@/app/hooks";
 
 const Settings: FC = () => {
   const get = useGet();

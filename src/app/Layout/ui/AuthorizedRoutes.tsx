@@ -1,7 +1,6 @@
-import * as React from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 const AuthorizedRoutesLayout: FC = () => {
   const { userId, isLoaded } = useAuth();
@@ -9,7 +8,7 @@ const AuthorizedRoutesLayout: FC = () => {
 
   console.log("test", userId);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isLoaded && !userId) {
       // TODO navigate to sign in route
       navigate("/sign-in");
