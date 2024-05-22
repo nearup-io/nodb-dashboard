@@ -23,7 +23,7 @@ const Settings: FC = () => {
   };
 
   const handleWhatsapp = (checked: boolean) => {
-    console.log("telegram checked" + checked);
+    console.log("whatsapp checked" + checked);
   };
 
   return (
