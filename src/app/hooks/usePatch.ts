@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/clerk-react";
 import { BASE_URL } from "@/utils/consts.ts";
 
-const usePost = () => {
+const usePatch = () => {
   const { getToken } = useAuth();
 
   return async <T>({
@@ -16,7 +16,7 @@ const usePost = () => {
         "Content-type": "application/json",
         Authorization: `Bearer ${await getToken()}`,
       },
-      method: "POST",
+      method: "PATCH",
       ...(!!body && { body: JSON.stringify(body) }),
     });
 
@@ -24,4 +24,4 @@ const usePost = () => {
   };
 };
 
-export default usePost;
+export default usePatch;

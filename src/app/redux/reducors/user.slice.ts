@@ -13,8 +13,8 @@ export interface UserState {
 
 const initialState: UserState = {
   user: {
-    clerkUserId: "",
-    email: "",
+    clerkUserId: "someId",
+    email: "someEmail",
   },
 };
 
