@@ -39,7 +39,7 @@ const AuthHandler = () => {
         dispatch(setUser({ ...user.data, jwtToken }));
       })();
     }
-  }, [isSignedIn, isLoaded, dispatch, setUser, isAuthenticated]);
+  }, [isSignedIn, isLoaded, dispatch, isAuthenticated, getToken, navigate]);
 
   return (
     <div className="navbar-end">
