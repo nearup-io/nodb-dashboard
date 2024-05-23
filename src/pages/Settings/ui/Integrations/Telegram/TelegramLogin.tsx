@@ -1,6 +1,6 @@
 "use client";
 import { LoginButton } from "@telegram-auth/react";
-import { getAxiosInstance } from "app/axios.ts";
+import { getAxiosInstance } from "@/app/axios.ts";
 
 const TelegramLogin = () => {
   return (

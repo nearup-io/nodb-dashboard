@@ -13,7 +13,10 @@ import {
   User,
 } from "@/app/redux/reducors/user.slice.ts";
 import { useNavigate } from "react-router-dom";
-import { getAxiosInstance, setAxiosInstanceDefaultHeaders } from "app/axios.ts";
+import {
+  getAxiosInstance,
+  setAxiosInstanceDefaultHeaders,
+} from "@/app/axios.ts";
 
 const AuthHandler = () => {
   const { isSignedIn, isLoaded, getToken } = useAuth();

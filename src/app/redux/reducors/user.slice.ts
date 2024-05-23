@@ -14,8 +14,8 @@ export interface UserState {
 
 const initialState: UserState = {
   user: {
-    clerkUserId: "someId",
-    email: "someEmail",
+    clerkUserId: "",
+    email: "",
     jwtToken: "",
   },
 };

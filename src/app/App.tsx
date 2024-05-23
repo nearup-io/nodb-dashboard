@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { AuthorizedRoutesLayout, Layout } from "@/app/Layout";
-import { Home, NoMatch, Settings } from "@/pages";
+import { Home, NoMatch, Settings, SignIn } from "@/pages";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -21,6 +21,7 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<AuthorizedRoutesLayout />}>
             <Route path="settings" element={<Settings />} />
             <Route path="*" element={<NoMatch />} />
