@@ -1,23 +1,8 @@
-import { FC, useEffect, useState } from "react";
-import { useGet } from "@/app/hooks";
-import { User } from "@/app/redux/reducors/user.slice.ts";
 import { Telegram, Whatsapp } from "../Integrations";
+import { FC } from "react";
 
 const Settings: FC = () => {
-  const get = useGet();
-  const [user, setUser] = useState<User>();
-  // TODO set checked on and off dependent on settings
-  useEffect(() => {
-    // (async () => {
-    //   const user = await get<User>({
-    //     url: "/users/profile",
-    //   });
-    //   setUser(user);
-    // })();
-  }, [get]);
-
-  // console.log(user);
-
+  // TODO select user profile instead of user and do this with async thunks
   const handleTelegram = (checked: boolean) => {
     console.log("telegram checked" + checked);
   };

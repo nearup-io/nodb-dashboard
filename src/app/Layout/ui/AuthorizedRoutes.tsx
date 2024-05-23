@@ -6,28 +6,24 @@ import {
   setUser,
   User,
 } from "@/app/redux/reducors/user.slice.ts";
-import { useGet } from "@/app/hooks";
 import { useDispatch, useSelector } from "react-redux";
+import { getAxiosInstance } from "app/axios.ts";
 
 const AuthorizedRoutesLayout: FC = () => {
   const { isSignedIn, isLoaded } = useAuth();
   const isAuthenticated = useSelector(selectIsUserLoggedIn);
   const navigate = useNavigate();
-  const get = useGet();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getUser = async () => {
-      const user = await get<User>({
-        url: "/users/profile",
-      });
-      dispatch(setUser(user));
+      const user = await getAxiosInstance().get<User>("/users/profile");
+      dispatch(setUser(user.data));
     };
 
     if (isLoaded && isSignedIn && !isAuthenticated) {
       getUser();
     } else {
-      // TODO navigate to sign in route
       navigate("/sign-in");
     }
 

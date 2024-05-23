@@ -1,18 +1,16 @@
 "use client";
 import { LoginButton } from "@telegram-auth/react";
-import { usePatch } from "@/app/hooks";
+import { getAxiosInstance } from "app/axios.ts";
 
 const TelegramLogin = () => {
-  const patch = usePatch();
   return (
     <LoginButton
       // TODO add botUsername to .env
       botUsername="nodb999bot"
       onAuthCallback={async (data) => {
         console.log(data);
-        await patch({
-          url: "/users/settings/telegram",
-          body: { telegramId: data.id },
+        await getAxiosInstance().patch("/users/settings/telegram", {
+          telegramId: data.id,
         });
       }}
       buttonSize="large" // "large" | "medium" | "small"

@@ -5,6 +5,7 @@ import { RootState } from "app/redux/store.ts";
 export interface User {
   clerkUserId: string;
   email: string;
+  jwtToken: string;
 }
 
 export interface UserState {
@@ -15,6 +16,7 @@ const initialState: UserState = {
   user: {
     clerkUserId: "someId",
     email: "someEmail",
+    jwtToken: "",
   },
 };
 
@@ -34,6 +36,6 @@ export const { setUser } = userSlice.actions;
 export const selectIsUserLoggedIn = (state: RootState): boolean =>
   !!state.user.user.clerkUserId;
 
-export const selectUser = (state: RootState): UserState => state.user;
+export const selectUser = (state: RootState): User => state.user.user;
 
 export default userSlice.reducer;

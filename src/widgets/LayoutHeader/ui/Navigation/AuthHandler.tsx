@@ -1,4 +1,3 @@
-import { usePost } from "@/app/hooks";
 import {
   SignedIn,
   SignedOut,
@@ -13,23 +12,31 @@ import {
   setUser,
   User,
 } from "@/app/redux/reducors/user.slice.ts";
+import { useNavigate } from "react-router-dom";
+import { getAxiosInstance, setAxiosInstanceDefaultHeaders } from "app/axios.ts";
 
 const AuthHandler = () => {
-  const { isSignedIn, isLoaded } = useAuth();
-  const post = usePost();
+  const { isSignedIn, isLoaded, getToken } = useAuth();
   const isAuthenticated = useSelector(selectIsUserLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoaded && isSignedIn && !isAuthenticated) {
       (async () => {
-        const user = await post<User>({
-          url: "/users/auth",
-        });
-        dispatch(setUser(user));
+        const jwtToken = await getToken();
+        if (!jwtToken) {
+          navigate("/sign-in");
+          return;
+        }
+        setAxiosInstanceDefaultHeaders(jwtToken);
+
+        const user = await getAxiosInstance().post<User>("/users/auth");
+
+        dispatch(setUser({ ...user.data, jwtToken }));
       })();
     }
-  }, [isSignedIn, isLoaded, post, dispatch, setUser, isAuthenticated]);
+  }, [isSignedIn, isLoaded, dispatch, setUser, isAuthenticated]);
 
   return (
     <div className="navbar-end">
