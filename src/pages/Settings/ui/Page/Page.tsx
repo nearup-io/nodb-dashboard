@@ -1,17 +1,9 @@
 import { Telegram, Whatsapp } from "../Integrations";
 import { FC } from "react";
-import { updateUserSettings } from "@/app/redux/reducors/user.slice";
-import { useAppDispatch } from "@/app/redux/hooks";
 
 const Settings: FC = () => {
-  const dispatch = useAppDispatch();
   // TODO select user profile instead of user and do this with async thunks
   const handleTelegram = (checked: boolean) => {
-    dispatch(
-      updateUserSettings({
-        telegramId: 555,
-      }),
-    );
     console.log("telegram checked" + checked);
   };
 

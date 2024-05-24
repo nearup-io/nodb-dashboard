@@ -1,8 +1,8 @@
-import axios, { Axios } from "axios";
+import axios, { AxiosInstance } from "axios";
 
-let axiosInstance: Axios;
+let axiosInstance: AxiosInstance;
 
-const createAxiosInstance = (): Axios => {
+const createAxiosInstance = (): AxiosInstance => {
   axiosInstance = axios.create({
     baseURL: "http://localhost:3000",
     headers: {
