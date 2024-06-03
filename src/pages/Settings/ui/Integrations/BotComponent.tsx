@@ -1,8 +1,13 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { ChangeEvent, FC, PropsWithChildren, useEffect, useState } from "react";
 
 type Props = {
   Icon: FC;
-  initialState: boolean;
+  checkedInitial: boolean;
+  initialState: {
+    appName?: string;
+    envName?: string;
+  };
+  applications: { name: string; environments: string[] }[];
   handleChecked: (checked: boolean) => void;
   title: string;
   subText?: string;
@@ -10,13 +15,24 @@ type Props = {
 
 const BotComponent = ({
   Icon,
+  checkedInitial,
+  applications,
   initialState,
   children,
   handleChecked,
   title,
   subText,
 }: PropsWithChildren<Props>) => {
-  const [checked, setChecked] = useState<boolean>(initialState);
+  const [checked, setChecked] = useState<boolean>(checkedInitial);
+  const [selectedApplication, setSelectedApplication] = useState<string>(
+    initialState?.appName || "",
+  );
+
+  const [selectedEnvironment, setSelectedEnvironment] = useState<string>(
+    initialState?.envName || "",
+  );
+
+  const [environmentNames, setEnvironmentNames] = useState<string[]>([]);
 
   useEffect(() => {
     handleChecked(checked);
@@ -26,6 +42,19 @@ const BotComponent = ({
     setChecked((state) => {
       return !state;
     });
+  };
+
+  const handleApplicationChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
+    const newAppName = event.target.value;
+
+    const environments =
+      applications.find((app) => app.name === newAppName)?.environments || [];
+
+    setEnvironmentNames(environments);
+
+    setSelectedApplication(newAppName);
+    setSelectedEnvironment("");
   };
 
   return (
@@ -40,13 +69,50 @@ const BotComponent = ({
         </div>
       </div>
       <div className="flex flex-row items-center justify-center">
+        <select
+          className="select w-full max-w-xs border-white"
+          onChange={(event) => handleApplicationChange(event)}
+        >
+          <option value={undefined} selected={!selectedApplication}>
+            Select an application
+          </option>
+
+          {applications.map(({ name }) => {
+            return (
+              <option
+                value={name}
+                key={name}
+                selected={selectedApplication === name}
+              >
+                {name}
+              </option>
+            );
+          })}
+        </select>
+        <select className="select ml-2 w-full max-w-xs border-white">
+          <option value={undefined} selected={!selectedEnvironment}>
+            Select an environment
+          </option>
+
+          {environmentNames.map((envName) => {
+            return (
+              <option
+                value={envName}
+                key={envName}
+                selected={selectedEnvironment === envName}
+              >
+                {envName}
+              </option>
+            );
+          })}
+        </select>
         <input
           type="checkbox"
-          className="toggle"
+          className="toggle ml-2"
           checked={checked}
           onChange={() => handleChange()}
         />
-        {checked ? children : null}
+        <div className="ml-2 w-56">{children ? children : null}</div>
       </div>
     </div>
   );

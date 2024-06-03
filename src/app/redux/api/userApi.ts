@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { UserSettings } from "../reducors/user.slice";
+import { UserTelegramSettings } from "../reducors/user.slice";
 import { getAxiosInstance } from "@/app/axios";
 import { AxiosError, AxiosHeaders, Method } from "axios";
 
@@ -43,8 +43,11 @@ export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:3000/" }),
   endpoints: (builder) => ({
-    updateUserSettings: builder.mutation<UserSettings, UserSettings>({
-      query: (data: UserSettings) => ({
+    updateUserSettings: builder.mutation<
+      UserTelegramSettings,
+      UserTelegramSettings
+    >({
+      query: (data: UserTelegramSettings) => ({
         url: "users/settings/telegram",
         method: "PATCH",
         data,

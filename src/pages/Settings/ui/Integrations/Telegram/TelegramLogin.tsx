@@ -1,20 +1,16 @@
 "use client";
 import { LoginButton } from "@telegram-auth/react";
-import { useUpdateUserSettingsMutation } from "@/app/redux/api/userApi";
+import { FC } from "react";
 
-const TelegramLogin = () => {
-  const [updateTelegramSettings] = useUpdateUserSettingsMutation();
-
+const TelegramLogin: FC<{ handleClick: (telegramId: number) => void }> = ({
+  handleClick,
+}) => {
   return (
     <LoginButton
       // TODO add botUsername to .env
       botUsername="nodb999bot"
       onAuthCallback={async (data) => {
-        const settings = await updateTelegramSettings({
-          telegramId: data.id,
-        }).unwrap();
-
-        console.log("settings", settings);
+        handleClick(data.id);
       }}
       buttonSize="large" // "large" | "medium" | "small"
       cornerRadius={5} // 0 - 20

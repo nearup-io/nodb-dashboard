@@ -7,14 +7,15 @@ export interface User {
   email: string;
 }
 
-export interface UserSettings {
-  telegramId?: number;
-  whatsappNumber?: string;
+export interface UserTelegramSettings {
+  telegramId: number;
+  appName: string;
+  envName: string;
 }
 
 export interface UserState {
   user: User;
-  settings: UserSettings;
+  userTelegramSettings?: UserTelegramSettings;
 }
 
 const initialState: UserState = {
@@ -22,7 +23,6 @@ const initialState: UserState = {
     clerkUserId: "",
     email: "",
   },
-  settings: {},
 };
 
 export const userSlice = createSlice({
