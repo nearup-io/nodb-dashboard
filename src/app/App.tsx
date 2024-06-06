@@ -5,36 +5,29 @@ import { NoMatch, Settings, SignIn, SignUp } from "@/pages";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { useAppDispatch } from "@/app/redux/hooks.ts";
 import { clearUser, setUser } from "@/app/redux/reducors/user.slice.ts";
-import { setAxiosInstanceDefaultHeaders } from "@/app/axios.ts";
+import { userApi } from "@/app/redux/api/userApi.ts";
 
 const App: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isSignedIn, isLoaded, getToken } = useAuth();
+  const { isSignedIn, isLoaded } = useAuth();
   const { user } = useUser();
   const dispatch = useAppDispatch();
-
+  const userSyncDispatch = userApi.endpoints.syncUser.initiate;
   useEffect(() => {
     if (location.pathname === "/sign-up") {
       return;
     }
 
     if (isSignedIn && isLoaded && user) {
-      (async () => {
-        const jwtToken = await getToken();
-        if (!jwtToken) {
-          navigate("/");
-          return;
-        }
-        // TODO this should be executed every 60s or when a request needs to be made
-        setAxiosInstanceDefaultHeaders(jwtToken);
-      })();
+      dispatch(userSyncDispatch());
       dispatch(
         setUser({
           clerkUserId: user.id,
           email: user.primaryEmailAddress?.emailAddress || "",
         }),
       );
+
       navigate("/settings");
     } else {
       dispatch(clearUser());
@@ -42,7 +35,7 @@ const App: FC = () => {
         navigate("/");
       }
     }
-  }, [isLoaded, isSignedIn, getToken, user, dispatch, location.pathname]);
+  }, [isLoaded, isSignedIn, user, dispatch, navigate]);
 
   return (
     <Routes>

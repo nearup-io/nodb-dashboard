@@ -1,4 +1,4 @@
-import { Telegram, Whatsapp } from "../Integrations";
+import { Telegram } from "../Integrations";
 import { FC, useState } from "react";
 import { type UserTelegramSettings } from "@/app/redux/reducors/user.slice.ts";
 

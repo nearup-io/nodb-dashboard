@@ -14,7 +14,6 @@ const AuthorizedRoutesLayout: FC = () => {
   }, [isAuthenticated, navigate]);
 
   if (!isAuthenticated) {
-    navigate("/");
     return <></>;
   } else {
     return <Outlet />;

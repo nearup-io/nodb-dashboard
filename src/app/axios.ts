@@ -8,6 +8,7 @@ const createAxiosInstance = (): AxiosInstance => {
     headers: {
       "Content-Type": "application/json",
     },
+    withCredentials: true,
   });
   return axiosInstance;
 };
@@ -19,11 +20,4 @@ const getAxiosInstance = () => {
   return axiosInstance;
 };
 
-const setAxiosInstanceDefaultHeaders = (token: string) => {
-  getAxiosInstance().defaults.headers.common = {
-    ...getAxiosInstance().defaults.headers.common,
-    Authorization: `Bearer ${token}`,
-  };
-};
-
-export { getAxiosInstance, setAxiosInstanceDefaultHeaders };
+export { getAxiosInstance };

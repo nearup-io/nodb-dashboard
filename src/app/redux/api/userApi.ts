@@ -43,6 +43,12 @@ export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:3000/" }),
   endpoints: (builder) => ({
+    syncUser: builder.mutation<void, void>({
+      query: () => ({
+        url: "users/auth",
+        method: "POST",
+      }),
+    }),
     updateUserSettings: builder.mutation<
       UserTelegramSettings,
       UserTelegramSettings
