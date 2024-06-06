@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { SignIn } from "@clerk/clerk-react";
+import { SignUp } from "@clerk/clerk-react";
 
 const Home: FC = () => {
   return (
     <section className="mb-3 flex justify-center">
-      <SignIn
+      <SignUp
         forceRedirectUrl="/settings"
-        signUpForceRedirectUrl="/settings"
-        signUpUrl="/sign-up"
+        signInForceRedirectUrl="/settings"
+        signInUrl="/"
       />
     </section>
   );
