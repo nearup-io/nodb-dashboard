@@ -1,7 +1,12 @@
 import { FC } from "react";
+import { SignIn } from "@clerk/clerk-react";
 
-const SignIn: FC = () => {
-  return <div>Please sign in</div>;
+const Home: FC = () => {
+  return (
+    <section className="mb-3 flex justify-center">
+      <SignIn />
+    </section>
+  );
 };
 
-export default SignIn;
+export default Home;

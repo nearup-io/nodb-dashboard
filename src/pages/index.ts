@@ -1,6 +1,5 @@
-import { Home } from "./Home";
+import { SignIn } from "./SignIn";
 import { NoMatch } from "./NoMatch";
 import { Settings } from "./Settings";
-import { SignIn } from "./SignIn";
 
-export { Home, NoMatch, Settings, SignIn };
+export { SignIn, NoMatch, Settings };

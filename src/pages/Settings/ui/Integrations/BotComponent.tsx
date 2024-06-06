@@ -72,35 +72,27 @@ const BotComponent = ({
         <select
           className="select w-full max-w-xs border-white"
           onChange={(event) => handleApplicationChange(event)}
+          defaultValue={selectedApplication}
         >
-          <option value={undefined} selected={!selectedApplication}>
-            Select an application
-          </option>
+          <option value={undefined}>Select an application</option>
 
           {applications.map(({ name }) => {
             return (
-              <option
-                value={name}
-                key={name}
-                selected={selectedApplication === name}
-              >
+              <option value={name} key={name}>
                 {name}
               </option>
             );
           })}
         </select>
-        <select className="select ml-2 w-full max-w-xs border-white">
-          <option value={undefined} selected={!selectedEnvironment}>
-            Select an environment
-          </option>
+        <select
+          className="select ml-2 w-full max-w-xs border-white"
+          defaultValue={selectedEnvironment}
+        >
+          <option value={undefined}>Select an environment</option>
 
           {environmentNames.map((envName) => {
             return (
-              <option
-                value={envName}
-                key={envName}
-                selected={selectedEnvironment === envName}
-              >
+              <option value={envName} key={envName}>
                 {envName}
               </option>
             );
