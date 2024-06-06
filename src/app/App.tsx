@@ -18,6 +18,7 @@ const App: FC = () => {
     if (location.pathname === "/sign-up") {
       return;
     }
+
     if (isSignedIn && isLoaded && user) {
       (async () => {
         const jwtToken = await getToken();
@@ -25,6 +26,7 @@ const App: FC = () => {
           navigate("/");
           return;
         }
+        // TODO this should be executed every 60s or when a request needs to be made
         setAxiosInstanceDefaultHeaders(jwtToken);
       })();
       dispatch(
@@ -36,9 +38,11 @@ const App: FC = () => {
       navigate("/settings");
     } else {
       dispatch(clearUser());
-      navigate("/");
+      if (location.pathname !== "/") {
+        navigate("/");
+      }
     }
-  }, [isLoaded, isSignedIn, getToken, navigate, user, dispatch]);
+  }, [isLoaded, isSignedIn, getToken, user, dispatch, location.pathname]);
 
   return (
     <Routes>

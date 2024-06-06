@@ -8,12 +8,7 @@ const LayoutHeader: FC = () => {
     <>
       <header>
         <nav className="navbar bg-base-100">
-          <Menu
-            links={[
-              { name: "Homepage", href: "/" },
-              { name: "Settings", href: "/settings" },
-            ]}
-          />
+          <Menu links={[{ name: "Settings", href: "/settings" }]} />
           <Logo logoName={"daisyUI"} />
           <AuthHandler />
         </nav>
