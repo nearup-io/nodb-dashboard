@@ -4,7 +4,7 @@ import { SignIn } from "@clerk/clerk-react";
 const Home: FC = () => {
   return (
     <section className="mb-3 flex justify-center">
-      <SignIn />
+      <SignIn forceRedirectUrl="/settings" signUpForceRedirectUrl="/settings" />
     </section>
   );
 };
