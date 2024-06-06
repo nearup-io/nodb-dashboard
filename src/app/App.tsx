@@ -6,6 +6,7 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import { useAppDispatch } from "@/app/redux/hooks.ts";
 import { clearUser, setUser } from "@/app/redux/reducors/user.slice.ts";
 import { userApi } from "@/app/redux/api/userApi.ts";
+import { Loading } from "@/widgets";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -14,8 +15,9 @@ const App: FC = () => {
   const { user } = useUser();
   const dispatch = useAppDispatch();
   const userSyncDispatch = userApi.endpoints.syncUser.initiate;
+
   useEffect(() => {
-    if (location.pathname === "/sign-up") {
+    if (!isLoaded || location.pathname === "/sign-up") {
       return;
     }
 
@@ -31,11 +33,21 @@ const App: FC = () => {
       navigate("/settings");
     } else {
       dispatch(clearUser());
-      if (location.pathname !== "/") {
-        navigate("/");
-      }
+      navigate("/");
     }
-  }, [isLoaded, isSignedIn, user, dispatch, navigate]);
+  }, [
+    isLoaded,
+    isSignedIn,
+    user,
+    dispatch,
+    userSyncDispatch,
+    location.pathname,
+    navigate,
+  ]);
+
+  if (!isLoaded) {
+    return <Loading />;
+  }
 
   return (
     <Routes>
